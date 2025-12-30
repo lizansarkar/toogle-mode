@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
+import Projects from './components/Projects'
 import Skills from './components/Skills'
+import Experience from './components/Experience'
+import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -22,13 +25,14 @@ export default function App() {
   }, [theme])
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Header theme={theme} setTheme={setTheme} />
-      <main className="container mx-auto px-6 py-12">
-        <Hero name="Lizan Sarkar" />
-        <About />
-        <Skills />
-      </main>
+      <Hero name="Lizan Sarkar" />
+      <About />
+      <Projects />
+      <Skills />
+      <Experience />
+      <Contact />
       <Footer />
     </div>
   )
