@@ -1,144 +1,95 @@
-import React, { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React from 'react'
 import { Briefcase, Calendar } from 'lucide-react'
-
-gsap.registerPlugin(ScrollTrigger)
+import { motion } from 'framer-motion'
 
 const experiences = [
   {
     role: 'Full Stack Developer',
     company: 'Tech Startup XYZ',
     duration: '2023 - Present',
-    description: 'Built and maintained scalable full-stack applications. Led frontend architecture decisions and mentored junior developers.',
+    description: 'Built and maintained scalable full-stack applications. Led frontend architecture and mentored developers.',
     achievements: ['Increased app performance by 40%', 'Led team of 3 developers', 'Shipped 15+ features']
   },
   {
     role: 'Frontend Developer',
     company: 'Digital Agency ABC',
     duration: '2022 - 2023',
-    description: 'Developed responsive web applications and optimized user interfaces for better engagement.',
+    description: 'Developed responsive web applications and optimized user interfaces.',
     achievements: ['Improved UX score by 35%', 'Reduced bundle size by 50%', 'Created design system']
   },
   {
     role: 'Junior Developer',
     company: 'Web Solutions Inc',
     duration: '2021 - 2022',
-    description: 'Started journey in web development, worked on multiple client projects and learned modern tech stack.',
+    description: 'Started journey in web development, worked on multiple client projects.',
     achievements: ['Built 5+ client websites', 'Mastered React fundamentals', 'Collaborated with design team']
   }
 ]
 
 export default function Experience() {
-  const sectionRef = useRef(null)
-  const titleRef = useRef(null)
-
-  useEffect(() => {
-    gsap.fromTo(
-      titleRef.current,
-      { opacity: 0, y: 40 },
-      {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%'
-        },
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power2.out'
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
       }
-    )
-
-    const items = sectionRef.current?.querySelectorAll('.exp-item')
-    if (items) {
-      gsap.set(items, { opacity: 0, x: -60 })
-      gsap.to(items, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%'
-        },
-        opacity: 1,
-        x: 0,
-        duration: 0.9,
-        stagger: 0.2,
-        ease: 'power2.out'
-      })
     }
-  }, [])
-
+  }
+  const itemVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: 'easeOut' }
+    }
+  }
   return (
-    <section ref={sectionRef} id="experience" className="py-32 relative overflow-hidden">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
+    <motion.section id="experience" className="py-28 px-6 border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-black" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+      <div className="max-w-4xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-4xl md:text-5xl font-black text-black dark:text-white mb-16 tracking-tight"
         >
-          <h2 ref={titleRef} className="text-5xl md:text-6xl font-black mb-6 text-slate-900 dark:text-white">Professional Journey</h2>
-          <p className="text-xl text-slate-700 dark:text-slate-400 max-w-2xl mx-auto font-medium">3+ years of building exceptional web experiences</p>
-        </motion.div>
-
-        <div className="space-y-8 relative max-w-4xl mx-auto">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500/0 via-purple-500/50 to-indigo-500/0 md:w-0.5 -translate-x-1/2"></div>
-
+          Experience
+        </motion.h2>
+        
+        <motion.div
+          className="space-y-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {experiences.map((exp, i) => (
-            <motion.div
-              key={i}
-              className="exp-item relative md:grid md:grid-cols-2"
-            >
-              {/* Timeline dot */}
-              <div className="absolute left-0 md:left-1/2 top-8 -translate-x-1/2 w-5 h-5 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full border-4 border-white dark:border-slate-950 shadow-lg"></div>
-
-              {/* Content */}
-              <div className={`ml-12 md:ml-0 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:col-start-2'}`}>
-                <motion.div
-                  whileHover={{ y: -8 }}
-                  className="group relative"
-                >
-                  <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/30 to-indigo-600/30 dark:from-purple-500/40 dark:to-indigo-500/40 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-
-                  <div className="relative glass rounded-xl p-8 backdrop-blur-xl">
-                    <div className="flex items-start gap-4 mb-5">
-                      <div className="p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
-                        <Briefcase className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{exp.role}</h3>
-                        <p className="text-purple-600 dark:text-purple-400 font-bold text-lg">{exp.company}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-500 mb-5 font-medium">
-                      <Calendar className="w-4 h-4" />
-                      {exp.duration}
-                    </div>
-
-                    <p className="text-slate-700 dark:text-slate-400 mb-5 font-medium leading-relaxed">{exp.description}</p>
-
-                    <div className="space-y-3">
-                      <p className="text-sm font-bold text-slate-800 dark:text-slate-300">Key achievements:</p>
-                      {exp.achievements.map((achievement, j) => (
-                        <motion.div
-                          key={j}
-                          whileHover={{ x: 5 }}
-                          className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-400 font-medium"
-                        >
-                          <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"></span>
-                          {achievement}
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
+            <motion.div key={i} variants={itemVariants} className="group border-l-2 border-gray-300 dark:border-gray-700 pl-8 pb-8 hover:border-gray-400 dark:hover:border-gray-600 transition-colors duration-300">
+              <div className="flex items-start gap-4 mb-4">
+                <Briefcase className="w-6 h-6 text-black dark:text-white mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-black dark:text-white group-hover:translate-x-1 transition-transform duration-300">{exp.role}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 font-medium text-lg">{exp.company}</p>
+                </div>
               </div>
+              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4 ml-10">
+                <Calendar className="w-4 h-4" />
+                <span className="text-sm font-medium">{exp.duration}</span>
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 mb-5 ml-10 leading-relaxed font-medium">{exp.description}</p>
+              <ul className="ml-10 space-y-2">
+                {exp.achievements.map((achievement, j) => (
+                  <li key={j} className="text-gray-600 dark:text-gray-400 text-sm flex items-start gap-3">
+                    <span className="text-black dark:text-white font-bold mt-1">•</span>
+                    <span>{achievement}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
-  )
+    </motion.section>
 }
+

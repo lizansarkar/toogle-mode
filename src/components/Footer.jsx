@@ -1,100 +1,86 @@
 import React from 'react'
+import { Github, Linkedin, Twitter, Mail } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-700/50 bg-white dark:bg-slate-950/50 backdrop-blur-sm">
-      <div className="container mx-auto px-6 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12"
-        >
+    <motion.footer
+      className="border-t border-gray-300 dark:border-gray-700 bg-white dark:bg-black py-16 px-6"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+    >
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
-          <motion.div whileHover={{ y: -2 }}>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-sm shadow-lg">LS</div>
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-black dark:bg-white flex items-center justify-center text-white dark:text-black font-bold text-sm">LS</div>
               <div>
-                <div className="font-bold text-slate-900 dark:text-white text-lg">Lizan Sarkar</div>
-                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium">Full Stack Developer</div>
+                <div className="font-bold text-black dark:text-white">Lizan Sarkar</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Developer</div>
               </div>
             </div>
-            <p className="text-slate-700 dark:text-slate-400 font-medium leading-relaxed">Building beautiful web experiences with modern technology and thoughtful design.</p>
-          </motion.div>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Building elegant web experiences with modern technology.</p>
+          </div>
 
           {/* Quick Links */}
-          <motion.div whileHover={{ y: -2 }}>
-            <h4 className="font-bold text-slate-900 dark:text-white mb-5 text-lg">Quick Links</h4>
-            <ul className="space-y-3">
-              {['Home', 'About', 'Projects', 'Experience'].map((link) => (
-                <motion.li key={link} whileHover={{ x: 5 }}>
-                  <a href={`#${link.toLowerCase()}`} className="text-slate-700 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 transition font-medium">
-                    {link}
-                  </a>
-                </motion.li>
-              ))}
+          <div>
+            <h4 className="font-bold text-black dark:text-white mb-6 text-sm uppercase tracking-wider">Links</h4>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><a href="#about" className="hover:text-black dark:hover:text-white transition-colors duration-300">About</a></li>
+              <li><a href="#projects" className="hover:text-black dark:hover:text-white transition-colors duration-300">Projects</a></li>
+              <li><a href="#skills" className="hover:text-black dark:hover:text-white transition-colors duration-300">Skills</a></li>
+              <li><a href="#contact" className="hover:text-black dark:hover:text-white transition-colors duration-300">Contact</a></li>
             </ul>
-          </motion.div>
-
-          {/* Resources */}
-          <motion.div whileHover={{ y: -2 }}>
-            <h4 className="font-bold text-slate-900 dark:text-white mb-5 text-lg">Resources</h4>
-            <ul className="space-y-3">
-              {['Blog', 'GitHub', 'Resume', 'Contact'].map((link) => (
-                <motion.li key={link} whileHover={{ x: 5 }}>
-                  <a href="#" className="text-slate-700 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 transition font-medium">
-                    {link}
-                  </a>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+          </div>
 
           {/* Social */}
-          <motion.div whileHover={{ y: -2 }}>
-            <h4 className="font-bold text-slate-900 dark:text-white mb-5 text-lg">Follow</h4>
-            <div className="flex gap-4">
-              {[
-                { icon: <Github className="w-5 h-5" />, label: 'GitHub' },
-                { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn' },
-                { icon: <Twitter className="w-5 h-5" />, label: 'Twitter' },
-                { icon: <Mail className="w-5 h-5" />, label: 'Email' }
-              ].map((social, i) => (
-                <motion.a
+          <div>
+            <h4 className="font-bold text-black dark:text-white mb-6 text-sm uppercase tracking-wider">Social</h4>
+            <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+              <li><a href="#" className="hover:text-black dark:hover:text-white transition-colors duration-300">LinkedIn</a></li>
+              <li><a href="#" className="hover:text-black dark:hover:text-white transition-colors duration-300">GitHub</a></li>
+              <li><a href="#" className="hover:text-black dark:hover:text-white transition-colors duration-300">Twitter</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-bold text-black dark:text-white mb-6 text-sm uppercase tracking-wider">Contact</h4>
+            <a href="mailto:lizan@example.com" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-300 text-sm">
+              lizan@example.com
+            </a>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-300 dark:border-gray-700 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-sm text-gray-600 dark:text-gray-400">&copy; {currentYear} Lizan Sarkar. All rights reserved.</p>
+          <div className="flex gap-4">
+            {[
+              { icon: Github, label: 'GitHub' },
+              { icon: Linkedin, label: 'LinkedIn' },
+              { icon: Twitter, label: 'Twitter' },
+              { icon: Mail, label: 'Email' }
+            ].map((social, i) => {
+              const Icon = social.icon
+              return (
+                <a
                   key={i}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
                   href="#"
-                  className="text-slate-700 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 transition p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/50"
+                  className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-300"
                   title={social.label}
                 >
-                  {social.icon}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="border-t border-slate-200 dark:border-slate-700/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <p className="text-slate-700 dark:text-slate-400 font-medium">
-            © {currentYear} Lizan Sarkar. All rights reserved.
-          </p>
-          <p className="text-slate-700 dark:text-slate-400 font-medium flex items-center gap-2">
-            Built with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> using React, Tailwind & GSAP
-          </p>
-        </motion.div>
+                  <Icon className="w-5 h-5" />
+                </a>
+              )
+            })}
+          </div>
+        </div>
       </div>
-    </footer>
+    </motion.footer>
   )
 }
+
