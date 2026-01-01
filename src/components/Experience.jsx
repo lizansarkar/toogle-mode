@@ -52,7 +52,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-black text-black dark:text-white mb-16 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-black text-black dark:text-white mb-12 sm:mb-16 tracking-tight px-2 sm:px-0"
         >
           Experience
         </motion.h2>
@@ -91,5 +91,6 @@ export default function Experience() {
         </motion.div>
       </div>
     </motion.section>
+  )
 }
 

@@ -1,35 +1,36 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ExternalLink, Github } from 'lucide-react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import projectsData from '../data/projects'
 
-const projects = projectsData.map(p => ({
-  ...p,
-  image: p.image || 'https://images.unsplash.com/photo-1460925895917-adf4e565db0d?w=500&h=300&fit=crop'
-}))
+gsap.registerPlugin(ScrollTrigger)
 
-const oldProjects = [
-  {
-    title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with real-time inventory and payment integration.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    image: 'https://images.unsplash.com/photo-1460925895917-adf4e565db0d?w=500&h=300&fit=crop'
-  },
-  {
-    title: 'Task Management App',
-    description: 'Collaborative task manager with drag-and-drop and real-time updates.',
-    tech: ['Next.js', 'Firebase', 'Tailwind'],
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=300&fit=crop'
-  },
-  {
-    title: 'Analytics Dashboard',
-    description: 'Interactive data visualization dashboard with real-time metrics.',
-    tech: ['React', 'Node.js', 'PostgreSQL'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop'
-  }
-]
+const projects = projectsData || []
 
 export default function Projects() {
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    // GSAP ScrollTrigger: Parallax effect on project cards
+    cardsRef.current.forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          end: 'top 20%',
+          scrub: 1,
+          markers: false
+        },
+        opacity: 0,
+        y: 60,
+        duration: 1
+      })
+    })
+
+    return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+  }, [])
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -61,7 +62,7 @@ export default function Projects() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-black text-black dark:text-white mb-16 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-black text-black dark:text-white mb-12 sm:mb-16 tracking-tight px-2 sm:px-0"
         >
           Featured Projects
         </motion.h2>
@@ -74,7 +75,7 @@ export default function Projects() {
           viewport={{ once: true }}
         >
           {projects.map((project, i) => (
-            <motion.div key={i} variants={cardVariants} whileHover={{ y: -8, transition: { duration: 0.2 } }} className="group border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-900">
+            <motion.div ref={(el) => (cardsRef.current[i] = el)} key={i} variants={cardVariants} whileHover={{ y: -8, transition: { duration: 0.2 } }} className="group border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden hover:border-gray-400 dark:hover:border-gray-600 transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-900">
               <div className="overflow-hidden bg-gray-200 dark:bg-gray-800 h-48">
                 <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>

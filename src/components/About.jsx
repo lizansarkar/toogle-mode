@@ -1,8 +1,32 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Code2, Zap, Target, Users } from 'lucide-react'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
+  const cardsRef = useRef([])
+
+  useEffect(() => {
+    // GSAP ScrollTrigger: Stagger animation on cards
+    cardsRef.current.forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        x: i % 2 === 0 ? -50 : 50,
+        duration: 0.8,
+        delay: i * 0.1
+      })
+    })
+
+    return () => ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+  }, [])
   const features = [
     {
       icon: Code2,
@@ -39,7 +63,7 @@ export default function About() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-black text-black dark:text-white mb-16 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-black text-black dark:text-white mb-12 sm:mb-16 tracking-tight"
         >
           About Me
         </motion.h2>
@@ -65,6 +89,7 @@ export default function About() {
             const Icon = feature.icon
             return (
               <motion.div
+                ref={(el) => (cardsRef.current[i] = el)}
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

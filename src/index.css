@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 * {
   margin: 0;
@@ -170,5 +168,31 @@ a:focus, button:focus {
 
 .dark a:focus, .dark button:focus {
   outline-color: currentColor;
+}
+
+/* Mobile touch target improvements */
+@media (max-width: 640px) {
+  button, a[class*="btn"], [role="button"] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  input, textarea, select {
+    font-size: 16px;
+    min-height: 48px;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+body, html {
+  overflow-x: hidden;
+}
+
+/* Better responsive spacing */
+@media (max-width: 768px) {
+  section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 

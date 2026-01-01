@@ -13,7 +13,7 @@ export default function Footer() {
       viewport={{ once: true }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-16">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -56,7 +56,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-300 dark:border-gray-700 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="border-t border-gray-300 dark:border-gray-700 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 text-center sm:text-left">
           <p className="text-sm text-gray-600 dark:text-gray-400">&copy; {currentYear} Lizan Sarkar. All rights reserved.</p>
           <div className="flex gap-4">
             {[
